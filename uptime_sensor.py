@@ -22,3 +22,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+'''
+Resources:
+    - https://docs.python.org/3/library/subprocess.html
+    - https://www.datacamp.com/tutorial/python-subprocess
+    - https://github.com/raqueltianna/ops-401/blob/main/uptimesensorpt1.py
+'''
