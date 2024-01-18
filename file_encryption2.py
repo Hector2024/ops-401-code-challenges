@@ -45,6 +45,23 @@ def decrypt_string(ciphertext, key):
     decrypted_text = f.decrypt(ciphertext.encode())
     print("Decrypted Text: " + decrypted_text.decode('utf-8'))
 
+# Function to recursively encrypt a folder and its contents
+def encrypt_folder(folder_path, key):
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            encrypt_file(file_path, key)
+            os.remove(file_path)
+
+# Function to recursively decrypt a folder and its contents
+def decrypt_folder(folder_path, key):
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            decrypt_file(file_path, key)
+            os.remove(file_path)
+
+# Main function
 # Main function
 def main():
     # Check if key file exists, if not, generate a new key
@@ -55,7 +72,7 @@ def main():
     key = load_key()
 
     # Prompt the user to select a mode
-    mode = int(input("Select a mode:\n1. Encrypt a file\n2. Decrypt a file\n3. Encrypt a message\n4. Decrypt a message\n"))
+    mode = int(input("Select a mode:\n1. Encrypt a file\n2. Decrypt a file\n3. Encrypt a message\n4. Decrypt a message\n5. Encrypt folder path\n6. Decrypt folder path"))
 
     if mode in [1, 2]:
         # File encryption or decryption
@@ -76,13 +93,20 @@ def main():
             encrypt_string(text, key)
         elif mode == 4:
             decrypt_string(text, key)
+    elif mode in [5, 6]:
+        # Recursive folder encryption or decryption
+        folder_path = input("Enter the folder path: ")
+        if mode == 5:
+            encrypt_folder(folder_path, key)
+            print("Folder encrypted successfully.")
+        elif mode == 6:
+            decrypt_folder(folder_path, key)
+            print("Folder decrypted successfully.")
 
 if __name__ == "__main__":
     main()
 
-
 '''
 resources
-https://github.com/codefellows/seattle-cybersecurity-401d10/blob/main/class-06/challenges/DEMO.md
-https://chat.openai.com/share/82492fe6-dca0-40de-8a7c-1aa30a92afea
+https://github.com/Hector2024/ops-401-code-challenges/blob/main/file_encryption1.py
 ''' 
