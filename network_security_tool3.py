@@ -1,11 +1,11 @@
 #!/usr/bin/env python3 
 
-# Script Name:                         network_security_tool2 
+# Script Name:                         network_security_tool3 
 # Author name:                         Hector Cordova
-# Date of latest revision:             23JAN2024 
+# Date of latest revision:             24JAN2024 
 # Purpose:                             To creat a scanning tool using scapy
 # Execution:                           python3 
-# Additional Resources:                https://scapy.readthedocs.io/en/latest/index.html | https://scapy.readthedocs.io/en/latest/introduction.html# | https://scapy.readthedocs.io/en/latest/extending.html | https://chat.openai.com/share/d5b54cd7-714b-4088-ac2a-8329ae747529
+# Resources:                           https://scapy.readthedocs.io/en/latest/index.html | https://scapy.readthedocs.io/en/latest/introduction.html# | https://scapy.readthedocs.io/en/latest/extending.html | https://chat.openai.com/share/d5b54cd7-714b-4088-ac2a-8329ae747529
 
 import sys
 from scapy.all import IP, TCP, ICMP, sr, send
@@ -36,13 +36,14 @@ def scan_port(target_ip, port):
     else:
         print(f"Port {port} did not respond")
 
-def icmp_ping_sweep(network_address):
-    ip_addresses = [str(ip) for ip in IP(network_address).hosts()]
+def network_security_scan(target_ip):
+    # ICMP Ping Sweep
+    ip_addresses = [str(ip) for ip in IP(target_ip).hosts()]
 
     online_hosts = 0
 
     for ip in ip_addresses:
-        if IP(ip).dst != IP(network_address).network and IP(ip).dst != IP(network_address).broadcast:
+        if IP(ip).dst != IP(target_ip).network and IP(ip).dst != IP(target_ip).broadcast:
             icmp_packet = IP(dst=ip) / ICMP()
             response = sr(icmp_packet, timeout=1, verbose=0)[0]
 
@@ -60,34 +61,22 @@ def icmp_ping_sweep(network_address):
             else:
                 print(f"Host {ip} is unresponsive.")
 
-    print(f"\nTotal online hosts: {online_hosts}")
+    if online_hosts > 0:
+        print(f"\nTotal online hosts: {online_hosts}")
 
-def main():
+        # Port Scan
+        port_input = input("Enter port range (e.g., 80-100) or specific ports (e.g., 22,80,443): ")
+        ports = get_ports_from_input(port_input)
+
+        for port in ports:
+            scan_port(target_ip, port)
+    else:
+        print("No online hosts found.")
+
+if __name__ == "__main__":
     try:
-        print("Network Security Tool Menu:")
-        print("1. TCP Port Range Scanner")
-        print("2. ICMP Ping Sweep")
-        
-        choice = int(input("Enter your choice (1 or 2): "))
-
-        if choice == 1:
-            target_ip = input("Enter the target IP address: ")
-            port_input = input("Enter port range (e.g., 80-100) or specific ports (e.g., 22,80,443): ")
-
-            ports = get_ports_from_input(port_input)
-
-            for port in ports:
-                scan_port(target_ip, port)
-
-        elif choice == 2:
-            network_address = input("Enter the network address with CIDR block (e.g., 10.10.0.0/24): ")
-            icmp_ping_sweep(network_address)
-
-        else:
-            print("Invalid choice. Please enter 1 or 2.")
+        target_ip = input("Enter the target IP address: ")
+        network_security_scan(target_ip)
 
     except Exception as e:
         print(f"An error occurred: {e}")
-
-if __name__ == "__main__":
-    main()
