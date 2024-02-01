@@ -1,8 +1,8 @@
 #!/usr/bin/env python3 
 
-# Script Name:                         automated_brute_force_tool 
+# Script Name:                         automated_brute_force_tool2
 # Author name:                         Hector Cordova
-# Date of latest revision:             29JAN2024 
+# Date of latest revision:             30JAN2024 
 # Purpose:                             To create a automated brute force tool
 # Execution:                           python3 
 # Additional Resources:                https://www.geeksforgeeks.org/how-to-execute-shell-commands-in-a-remote-machine-using-python-paramiko/, https://null-byte.wonderhowto.com/how-to/sploit-make-ssh-brute-forcer-python-0161689/, https://github.com/Hector2024/ops-401-code-challenges/blob/main/automated_brute_force_tool.py, https://chat.openai.com/share/c2ff26fa-870d-44b5-a142-f5f0a87857cc
