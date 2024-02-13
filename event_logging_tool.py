@@ -1,10 +1,10 @@
 #!/usr/bin/env python3 
 
-# Script Name:                      opschallenge26.py 
-# Author Name:                      Tianna Farrow
+# Script Name:                      event_logging_tool.py 
+# Author Name:                      Hector Cordova
 # Date of Latest Revision:          02/12/24
 # Purpose:                          add logging capabilities to a previous script 
-# Execution                         python3 opschallenge26.py 
+# Execution                         python3  
 # Additional Resources:             https://docs.python.org/3/howto/logging.html#logging-basic-tutorial, https://www.howtogeek.com/435903/what-are-stdin-stdout-and-stderr-on-linux/, https://dotnettutorials.net/lesson/logging-module-in-python/, https://github.com/raqueltianna/ops-401/blob/main/opschallenege26.py
 
 from scapy.all import IP, ICMP, sr1, RandShort, TCP
