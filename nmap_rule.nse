@@ -32,3 +32,7 @@ action = function()
         end
     end
 end
+
+
+
+-- Resources: https://nmap.org/book/nse-tutorial.html, https://www.stationx.net/nmap-cheat-sheet/, https://www.lua.org/manual/5.1/, https://chat.openai.com/share/a9fda0b8-da9f-4ccc-8659-810841ef1e81
